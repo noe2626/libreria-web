@@ -1,0 +1,95 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="h6 text-uppercase mb-0">Nueva venta</h3>
+  </div>
+  <div class="card-body">
+      <form [formGroup]="formData">
+        <div class="row">
+          <div class="col-md-12">
+            <mat-form-field class="example-full-width">
+              <input type="text" placeholder="Cliente" aria-label="Number" matInput [matAutocomplete]="autoCustomer" formControlName="cliente" (keyup)="filterCustomer()">
+              <mat-autocomplete #autoCustomer="matAutocomplete">
+                <mat-option *ngFor="let custom of customersFiltered, let i=index" [value]="custom.nombre" (click)="selectCustomer(i)">
+                  {{custom.nombre}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="example-full-width">
+              <input type="text" placeholder="Titulo del libro" aria-label="Number" matInput [matAutocomplete]="autoBook" formControlName="titulo" (keyup)="filterBook()">
+              <mat-autocomplete #autoBook="matAutocomplete">
+                <mat-option *ngFor="let book of booksFiltered, let i=index" [value]="book.titulo" (click)="selectBook(i)">
+                  {{book.titulo}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <input type="text" placeholder="Descripción" aria-label="text" formControlName="descripcion" class="cant">
+          </div>
+          <div class="col-md-3">
+              <input type="Number" placeholder="Cantidad" aria-label="Number" formControlName="cantidad" class="cant">
+          </div>
+          <div class="col-md-3">
+            <button (click)="addSale()" [disabled]="formData.invalid" class="btn btn-primary btn-add button btn-add">Agregar</button>
+        </div>
+        </div>
+      </form>
+  </div>
+  <h4>Total de la venta <span style="font-weight: bold;">${{importe}}</span></h4>
+  <div class="card-body">
+    <table class="table table-striped card-text">
+      <thead>
+        <tr>
+          <th>Libro</th>
+          <th>Cantidad</th>
+          <th>Total</th>
+          <th>Descripcion</th>
+          <th>Acciones</th>
+        </tr>
+
+      </thead>
+      <tbody>
+        <tr *ngFor="let sale of sales, let i = index">
+          <td>{{sale.libro}}</td>
+          <td>{{sale.cantidad}}</td>
+          <td>${{sale.total}}</td>
+          <td>{{sale.descripcion}}</td>
+          <td>
+            <button class="button-action" (click)="selectSale(i)" data-toggle="modal" data-target="#deleteSale">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="offset-md-5 col-md-2">
+        <button class="btn btn-primary button btn-add" (click)="saveSale()" [disabled]="sales.length === 0">Registrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteSale" tabindex="-1" role="dialog" aria-labelledby="deleteSale" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Advertencia</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Deseas borrar este registro?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="deleteSale()" data-dismiss="modal">Borrar</button>
+      </div>
+    </div>
+  </div>
+</div>

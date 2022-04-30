@@ -1,0 +1,38 @@
+<header class="header index">
+  <nav class="navbar navbar-expand-lg px-4 py-2 bg-white shadow">
+    <img src="assets/img/logo.png" alt="Jason Doe"
+    style="max-width: 3.5rem;"
+    class="img-fluid rounded-circle shadow"><a
+      class="navbar-brand font-weight-bold text-uppercase text-base title"
+      >Galeno librería</a
+    >
+    <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
+      <li class="nav-item dropdown ml-auto">
+        <a
+          id="userInfo"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          class="nav-link dropdown-toggle a-img"
+          style="cursor:pointer;"
+          ><img
+            src="assets/img/avatar.png"
+            alt="Jason Doe"
+            style="max-width: 3rem;"
+            class="img-fluid rounded-circle shadow img"
+        /></a>
+
+        <div aria-labelledby="userInfo" class="dropdown-menu" *ngIf="employee!=null">
+          <a class="dropdown-item">
+            <strong class="d-block text-uppercase headings-font-family">{{employee.usuario}}</strong></a>
+          <a class="dropdown-item">
+            <strong class="d-block">{{employee.nombre}}</strong></a>
+          <div class="dropdown-divider"></div>
+          <a [routerLink]="['/login']" class="dropdown-item" (click)="logout()">Cerrar sesión</a>
+        </div>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<app-alert></app-alert>

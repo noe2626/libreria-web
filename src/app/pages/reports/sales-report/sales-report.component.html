@@ -1,0 +1,106 @@
+<div class="card">
+  <div class="card-header">
+    <h6 class="text-uppercase mb-0">Reporte de ventas</h6>
+  </div>
+  <div class="card-body">
+    <div class="container">
+      <form [formGroup]="formData">
+        <div class="row">
+          <div class="col-md-5">
+            <input type="date" name="" id="" class="form-control" formControlName="fecha_inicial">
+          </div>
+          <div class="col-md-5">
+            <input type="date" name="" id="" class="form-control" formControlName="fecha_final">
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-primary button btn-add" [disabled]="formData.invalid"
+              (click)="getReport()">Generar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<br>
+<div class="card" *ngIf="arrayBooks.length > 0 && arrayClients.length > 0">
+  <div class="card-body">
+    <div class="container">
+      <form [formGroup]="formData">
+        <div class="row">
+          <div class="col-md-5" style="display: flex; align-items: center;">
+            <span style="font-weight: bold; margin-right: 10px;">Libro más vendido:</span> {{arrayBooks[0].libro}}
+          </div>
+          <div class="col-md-5" style="display: flex; align-items: center;">
+            <span style="font-weight: bold; margin-right: 10px;">Cliente más frecuente:</span> {{arrayClients[0].cliente}}
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-primary button btn-add" style="width: 109.91px;" (click)="excel()">Excel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<br>
+<div class="card" *ngIf="salesArray.length > 0">
+  <div class="card-header">
+    <h6 class="text-uppercase mb-0">Graficos de ventas</h6>
+  </div>
+  <div class="card-body">
+    <div class="container">
+      <form [formGroup]="formData">
+        <div class="row">
+          <div class="col-md-6">
+            <canvas id="barCanvas" #barCanvas></canvas>
+          </div>
+          <div class="col-md-6">
+            <canvas id="barCanvas2" #barCanvas2></canvas>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div *ngFor="let sales of salesArray; let indice=index">
+  <br>
+  <div class="card">
+    <div class="card-header">
+      <h6 class="text-uppercase mb-0">Ticket {{indice + 1}}</h6>
+    </div>
+    <div class="card-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3"><span style="font-weight: bold;">Folio:</span> {{sales.ticket.folio}}</div>
+          <div class="col-md-3"><span style="font-weight: bold;">Fecha:</span> {{sales.ticket.created_at}}</div>
+          <div class="col-md-3"><span style="font-weight: bold;">Empleado:</span> {{sales.ticket.empleado}}</div>
+          <div class="col-md-3"><span style="font-weight: bold;">Cliente:</span> {{sales.ticket.cliente}}</div>
+        </div>
+      </div>
+      <br>
+      <table class="table table-striped card-text">
+        <thead>
+          <tr>
+            <th style="padding-left: 0px; padding-right: 0px;">No.</th>
+            <th style="padding-right: 0px; width: 276px; text-align: justify;">Libro</th>
+            <th style="padding-left: 0px; padding-right: 0px; width: 320px; text-align: justify;">Descripcion</th>
+            <th style="padding-left: 0px; padding-right: 0px; width: 65px;">Cantidad</th>
+            <th style="padding-left: 0px; padding-right: 0px;">Descuento</th>
+            <th style="padding-left: 0px; padding-right: 0px;">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sale of sales.ventass; let indice=index">
+            <th scope="row" style="padding-left: 0px; padding-right: 0px;">{{indice + 1}}</th>
+            <td style="white-space: pre-line; padding-right: 0px; width: 276px; text-align: justify;">{{sale.libro}}</td>
+            <td style="white-space: pre-line; padding-left: 0px; padding-right: 0px; width: 320px; text-align: justify;">
+              {{sale.descripcion}}</td>
+            <td style="padding-left: 0px; padding-right: 0px; width: 65px;">{{sale.cantidad}}</td>
+            <td style="padding-left: 0px; padding-right: 0px;">{{sale.descuento}}</td>
+            <td style="padding-left: 0px; padding-right: 0px;">${{sale.total}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<br>

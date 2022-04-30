@@ -1,0 +1,33 @@
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+h6 {
+  display: inline;
+}
+
+.button {
+  float: right;
+}
+
+.button-action {
+  background: transparent;
+  border: 0px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+th {
+  text-align: center;
+}
+
+td {
+  text-align: center;
+}
+
+.btn-add{
+  background: rgb(0, 95, 33) ;
+  border-color: rgb(0, 95, 33);
+}

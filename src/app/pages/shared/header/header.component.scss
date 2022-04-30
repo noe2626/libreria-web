@@ -1,0 +1,23 @@
+header {
+    position: fixed !important;
+    width: 100% !important;
+}
+
+.title{
+    margin-left: 50px;
+}
+
+.a-img{
+    padding: 0;
+    padding-right: 20px;
+}
+
+.img{
+    background: rgb(156, 157, 157);
+    //border: rgb(68, 75, 84) 2px solid;
+    padding: 2px;
+}
+
+.index{
+    z-index: 5;
+}

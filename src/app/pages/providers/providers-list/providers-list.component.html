@@ -1,0 +1,59 @@
+<div class="card">
+  <div class="card-header">
+    <h6 class="text-uppercase mb-0">Proveedores</h6>
+    <button [routerLink]="['/pages/providers-add']" class="btn btn-primary button btn-add">Nuevo</button>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped card-text">
+      <thead>
+      <tr>
+        <th>No.</th>
+        <th>Nombre</th>
+        <th>Teléfono</th>
+        <th>Cuenta Bancaria</th>
+        <th>Contacto</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr  *ngFor="let providers of Providers; let pointer = index">
+        <th scope="row">{{pointer + 1}}</th>
+        <td>{{providers.nombre}}</td>
+        <td>{{providers.telefono}}</td>
+        <td>{{providers.cuenta_bancaria}}</td>
+        <td>{{providers.contacto}}</td>
+        <td>
+          <button [routerLink]="['/pages/providers-edit', providers.id]" class="button-action">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </button>
+          &nbsp;&nbsp;
+          <button class="button-action" (click)="selectProvider(providers.id, providers.nombre)" data-toggle="modal" data-target="#deleteSale">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div class="modal fade" id="deleteSale" tabindex="-1" role="dialog" aria-labelledby="deleteSale" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Advertencia</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Deseas borrar <b>{{providerName}}</b>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="delete()" data-dismiss="modal">Borrar</button>
+      </div>
+    </div>
+  </div>
+</div>

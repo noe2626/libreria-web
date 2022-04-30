@@ -1,0 +1,37 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="h6 text-uppercase mb-0">Nuevo libro</h3>
+  </div>
+  <div class="card-body">
+    <p>Ingresa los datos del libro</p>
+    <form [formGroup]="formData">
+      <div class="form-group">
+        <label class="form-control-label text-uppercase">Título</label>
+        <input type="text" placeholder="Título" class="form-control" formControlName="titulo"/>
+      </div>
+      <div class="form-group">
+        <label class="form-control-label text-uppercase">Autor</label>
+        <input type="tel" placeholder="Autor" class="form-control" formControlName="autor"/>
+      </div>
+      <div class="form-group">
+        <label class="form-control-label text-uppercase">ISBN</label>
+        <input type="tel" placeholder="ISBN" class="form-control" formControlName="isbn"/>
+      </div>
+      <div class="form-group">
+        <label class="form-control-label text-uppercase">Precio</label>
+        <input type="tel" placeholder="precio" class="form-control" formControlName="precio"/>
+      </div>
+      <div class="form-group">
+        <label class="form-control-label text-uppercase">Descuento(%)</label>
+        <input type="tel" placeholder="Descuento" class="form-control" formControlName="descuento"/>
+      </div>
+      <div class="form-group">
+        <label class="form-control-label text-uppercase">Stock</label>
+        <input type="tel" placeholder="Stock" class="form-control" formControlName="stock"/>
+      </div>
+      <div class="form-group button">
+        <button [disabled]="formData.invalid" type="submit" class="btn btn-save" (click)="submit()">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>

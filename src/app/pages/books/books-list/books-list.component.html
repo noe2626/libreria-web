@@ -1,0 +1,64 @@
+<div class="card">
+  <div class="card-header">
+    <h6 class="text-uppercase mb-0">Libros</h6>
+    <button [routerLink]="['/pages/books-add']" class="btn btn-primary button btn-add">Nuevo</button>
+  </div>
+  <div class="card-body">
+    <input type="text" placeholder="Buscar por título o ISBN" class="form-control" [(ngModel)]="filter" (keyup)="search()"/>
+    <br>
+    <table class="table table-striped card-text">
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>ISBN</th>
+          <th>Precio</th>
+          <th>Stock</th>
+          <th *ngIf="admin" class="actions">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let book of books, let i = index">
+          <td>{{book.titulo}}</td>
+          <td>{{book.autor}}</td>
+          <td>{{book.isbn}}</td>
+          <td>{{book.precio}}</td>
+          <td>{{book.stock}}</td>
+          <td *ngIf="admin">
+            <button class="button-action" [routerLink]="['/pages/books-details/',book.id]">
+              <i class="fa fa-eye icon-color" aria-hidden="true"></i>
+            </button>
+            &nbsp;&nbsp;
+            <button [routerLink]="['/pages/books-edit/',book.id]" class="button-action">
+              <i class="fa fa-pencil-square-o icon-color" aria-hidden="true"></i>
+            </button>
+            &nbsp;&nbsp;
+            <button class="button-action" (click)="selectBook(book.id, i, book.titulo)" data-toggle="modal" data-target="#deleteCustomer">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteCustomer" tabindex="-1" role="dialog" aria-labelledby="deleteCustomer" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Advertencia</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Deseas borrar <b>{{deleteName}}</b>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="delete()" data-dismiss="modal">Borrar</button>
+      </div>
+    </div>
+  </div>
+</div>

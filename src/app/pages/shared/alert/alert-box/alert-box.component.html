@@ -1,0 +1,11 @@
+<div class="box {{className}}" [class.hideMessage]="this.visible!=type">
+  <div class="msg-close " (click)="_hide()">&times;</div>
+  <div class=" msg-default ">
+    <div class="msg-header">
+      {{alertMsg.title}}
+    </div>
+    <div class="msg-body">
+      {{ alertMsg.text }}
+    </div>
+  </div>
+</div>

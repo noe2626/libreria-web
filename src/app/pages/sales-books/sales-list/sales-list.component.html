@@ -1,0 +1,60 @@
+<div class="card">
+  <div class="card-header">
+    <h6 class="text-uppercase mb-0">Ventas</h6>
+    <button [routerLink]="['/pages/sales-add']" class="btn btn-primary button btn-add">Nueva</button>
+  </div>
+  <div class="card-body">
+    <input type="text" placeholder="Buscar por libro" class="form-control" [(ngModel)]="filterBook" (keyup)="search()"/>
+    <br>
+    <table class="table table-striped card-text">
+      <thead>
+        <tr>
+          <th style="text-align: justify;">Libro</th>
+          <th style="text-align: justify;">Descripcion</th>
+          <th style="padding-left: 0px; padding-right: 0px; width: 65px;">Cantidad</th>
+          <th style="padding-left: 0px; padding-right: 0px;">Total</th>
+          <th style="padding-left: 0px; padding-right: 0px;">Fecha</th>
+          <th style="padding-left: 0px; padding-right: 0px; width: 70px;" *ngIf="admin">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sales of salesArray; let indice=index">
+          <td style="white-space: pre-line; text-align: justify;">{{sales.libro}}</td>
+          <td style="white-space: pre-line; text-align: justify;">{{sales.descripcion}}</td>
+          <td style="padding-left: 0px; padding-right: 0px; width: 65px;">{{sales.cantidad}}</td>
+          <td style="padding-left: 0px; padding-right: 0px;">${{sales.total}}</td>
+          <td style="padding-left: 0px; padding-right: 0px;">{{sales.created_at | date : 'dd-MM-yyyy'}}</td>
+          <td style="padding-left: 0px; padding-right: 0px; width: 70px;" *ngIf="admin">
+            <!--<button [routerLink]="['/pages/customers-edit', sales.id]" class="button-action">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </button>
+            &nbsp;&nbsp;-->
+            <button class="button-action" (click)="selectSale(sales.id)" data-toggle="modal" data-target="#deleteCustomer">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteCustomer" tabindex="-1" role="dialog" aria-labelledby="deleteCustomer" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Advertencia</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Deseas borrar esta venta?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="deleteSale()" data-dismiss="modal">Borrar</button>
+      </div>
+    </div>
+  </div>
+</div>

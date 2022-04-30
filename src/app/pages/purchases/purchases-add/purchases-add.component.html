@@ -1,0 +1,115 @@
+ <div class="card">
+  <div class="card-header">
+    <h3 class="h6 text-uppercase mb-0">Nueva compra</h3>
+  </div>
+
+
+   <div class="card-body">
+    <form [formGroup]="formGroup">
+
+      <div class="row">
+        <div class="col-md-3">
+          <mat-form-field class="example-full-width">
+            <input type="text" placeholder="Título del libro" aria-label="Number" matInput [matAutocomplete]="autoBook" formControlName="libro" (keyup)="filterBook()">
+            <mat-autocomplete #autoBook="matAutocomplete">
+              <mat-option *ngFor="let book of booksFiltered, let i=index" [value]="book.titulo" (click)="selectBook(i)">
+                {{book.titulo}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-3">
+          <input type="number" placeholder="Cantidad" aria-label="Number" formControlName="cantidad" class="cant">
+        </div>
+
+        <div class="col-md-3">
+          <input type="number" placeholder="Total" aria-label="Number" formControlName="total" class="cant">
+        </div>
+
+        <div class="col-md-3">
+          <input type="number" placeholder="Descuento" aria-label="Number" formControlName="descuento" class="cant">
+        </div>
+
+        <div class="col-md-3">
+          <mat-form-field class="example-full-width">
+            <input type="text" placeholder="Proveedor" aria-label="Number" matInput [matAutocomplete]="autoProvider" formControlName="proveedor" (keyup)="filterProvider()">
+            <mat-autocomplete #autoProvider="matAutocomplete">
+              <mat-option *ngFor="let provider of providersFiltered, let i=index" [value]="provider.nombre" (click)="selectProvider(i)">
+                {{provider.nombre}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-3">
+          <input type="text" placeholder="Código" aria-label="Number" formControlName="codigo" class="cant">
+        </div>
+
+        <div class="col-md-3" style="display: flex; align-items: center">
+          <button (click)="addPurchase()" [disabled]="formGroup.invalid" class="btn btn-primary btn-add button">Agregar</button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+   <div class="card-body">
+     <table class="table table-striped card-text">
+       <thead>
+       <tr>
+         <th>Libro</th>
+         <th>Cantidad</th>
+         <th>Total</th>
+         <th>Descuento</th>
+         <th>Acciones</th>
+       </tr>
+       </thead>
+       <tbody>
+       <tr *ngFor="let purchase of Purchases, let i = index">
+         <td>{{bookName(purchase.libro_id)}}</td>
+         <td>{{purchase.cantidad}}</td>
+         <td>${{purchase.total}}</td>
+         <td>{{purchase.descuento}}</td>
+         <td>
+           <button class="button-action" (click)="selectPurchase(i)" data-toggle="modal" data-target="#deleteSale">
+             <i class="fa fa-trash-o" aria-hidden="true"></i>
+           </button>
+         </td>
+       </tr>
+       </tbody>
+     </table>
+   </div>
+
+
+   <div class="card-body">
+     <div class="row">
+       <div class="offset-md-5 col-md-2">
+         <button class="btn btn-primary button btn-add" (click)="savePurchase()" [disabled]="Purchases.length === 0">Registrar</button>
+       </div>
+     </div>
+   </div>
+
+</div>
+
+
+
+ <div class="modal fade" id="deleteSale" tabindex="-1" role="dialog" aria-labelledby="deleteSale" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalLabel">Advertencia</h5>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+           <span aria-hidden="true">&times;</span>
+         </button>
+       </div>
+       <div class="modal-body">
+         ¿Deseas borrar este registro?
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+         <button type="button" class="btn btn-danger" (click)="deletePurchase()" data-dismiss="modal">Borrar</button>
+       </div>
+     </div>
+   </div>
+ </div>

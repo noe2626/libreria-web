@@ -1,0 +1,69 @@
+<div class="card">
+  <div class="card-header">
+    <h6 class="text-uppercase mb-0">Pedidos</h6>
+    <button [routerLink]="['/pages/orders-add']" class="btn btn-primary button btn-add">Nuevo</button>
+  </div>
+  <div class="card-body padding-b">
+    <select [(ngModel)]="option" class="form-control" (change)="filterOption()">
+      <option value="pendiente">Pendiente</option>
+      <option value="entregado">Entregado</option>
+      <option value="cancelado">Cancelado</option>
+      <option value="fuera">Fuera de catálogo</option>
+      <option value="todos">Todos</option>
+    </select>
+    <br>
+    <input type="text" placeholder="Buscar por libro" class="form-control" [(ngModel)]="filterBook" (keyup)="search()"/>
+  </div>
+  <div class="card-body padding-t">
+    <table class="table table-striped card-text">
+      <thead>
+        <tr>
+          <th>Libro</th>
+          <th>Cantidad</th>
+          <th>Cliente</th>
+          <th>Estado</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders, let i = index">
+          <td>{{order.libro}}</td>
+          <td>{{order.cantidad}}</td>
+          <td>{{order.cliente}}</td>
+          <td>{{order.estado}}</td>
+          <td>{{order.fecha | date : 'dd-MM-yyyy'}}</td>
+          <td>
+            <button *ngIf="order.estado==='pendiente'" [routerLink]="['/pages/orders-edit']" (click)="saveOrder(order)" class="button-action">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </button>
+            &nbsp;&nbsp;
+            <button class="button-action" (click)="selectOrder(order.id, i)" data-toggle="modal" data-target="#deleteCustomer" *ngIf="admin">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteCustomer" tabindex="-1" role="dialog" aria-labelledby="deleteCustomer" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Advertencia</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Deseas borrar este pedido?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="delete()" data-dismiss="modal">Borrar</button>
+      </div>
+    </div>
+  </div>
+</div>

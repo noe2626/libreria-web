@@ -1,0 +1,103 @@
+<div class="card">
+  <div class="card-header">
+    <h6 class="text-uppercase mb-0">Reporte de compras</h6>
+  </div>
+  <div class="card-body">
+    <div class="container">
+      <form [formGroup]="formData">
+        <div class="row">
+          <div class="col-md-5">
+            <input type="date" name="" id="" class="form-control" formControlName="fecha_inicial">
+          </div>
+          <div class="col-md-5">
+            <input type="date" name="" id="" class="form-control" formControlName="fecha_final">
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-primary button btn-add" [disabled]="formData.invalid"
+              (click)="getReport()">Generar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<br>
+<div class="card" *ngIf="arrayBooks.length > 0 && arrayProviders.length > 0">
+  <div class="card-body">
+    <div class="container">
+      <form [formGroup]="formData">
+        <div class="row">
+          <div class="col-md-5" style="display: flex; align-items: center;">
+            <span style="font-weight: bold; margin-right: 10px;">Libro más comprado:</span> {{arrayBooks[0].libro}}
+          </div>
+          <div class="col-md-5" style="display: flex; align-items: center;">
+            <!--<span style="font-weight: bold; margin-right: 10px;">Proveedor más frecuente:</span> {{arrayProviders[0].proveedor}}-->
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-primary button btn-add" style="width: 109.91px;" (click)="excel()">Excel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<br>
+<div class="card" *ngIf="purchasesArray.length > 0">
+  <div class="card-header">
+    <h6 class="text-uppercase mb-0">Graficos de compras</h6>
+  </div>
+  <div class="card-body">
+    <div class="container">
+      <form [formGroup]="formData">
+        <div class="row">
+          <div class="col-md-6">
+            <canvas id="barCanvas" #barCanvas></canvas>
+          </div>
+          <div class="col-md-6">
+            <canvas id="barCanvas2" #barCanvas2></canvas>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngFor="let purchases of purchasesArray; let indice=index">
+  <br>
+  <div class="card">
+    <div class="card-header">
+      <h6 class="text-uppercase mb-0">Factura {{indice + 1}}</h6>
+    </div>
+    <div class="card-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3"><span style="font-weight: bold;">Codigo:</span> {{purchases.factura.codigo}}</div>
+          <div class="col-md-3"><span style="font-weight: bold;">Fecha:</span> {{purchases.factura.created_at}}</div>
+          <div class="col-md-3"><span style="font-weight: bold;">Proveedor:</span> {{purchases.factura.proveedor}}</div>
+        </div>
+      </div>
+      <br>
+      <table class="table table-striped card-text">
+        <thead>
+          <tr>
+            <th style="padding-left: 0px; padding-right: 0px;">No.</th>
+            <th style="padding-right: 0px; width: 276px; text-align: justify;">Libro</th>
+            <th style="padding-left: 0px; padding-right: 0px; width: 65px;">Cantidad</th>
+            <th style="padding-left: 0px; padding-right: 0px;">Descuento</th>
+            <th style="padding-left: 0px; padding-right: 0px;">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let purchase of purchases.compras; let indice=index">
+            <th scope="row" style="padding-left: 0px; padding-right: 0px;">{{indice + 1}}</th>
+            <td style="white-space: pre-line; padding-right: 0px; width: 276px; text-align: justify;">{{purchase.libro}}</td>
+            <td style="padding-left: 0px; padding-right: 0px; width: 65px;">{{purchase.cantidad}}</td>
+            <td style="padding-left: 0px; padding-right: 0px;">{{purchase.descuento}}</td>
+            <td style="padding-left: 0px; padding-right: 0px;">${{purchase.total}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<br>

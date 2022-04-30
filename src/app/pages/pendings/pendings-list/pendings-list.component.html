@@ -1,0 +1,58 @@
+<div class="card">
+  <div class="card-header">
+    <h6 class="text-uppercase mb-0">Pendientes</h6>
+    <button [routerLink]="['/pages/pendings-add']" class="btn btn-primary button btn-add">Nuevo</button>
+  </div>
+  <div class="card-body">
+    <input type="text" placeholder="Buscar por libro" class="form-control" [(ngModel)]="pedingSelect" (keyup)="search()"/>
+    <br>
+    <table class="table table-striped card-text">
+      <thead>
+        <tr>
+          <th>Libro</th>
+          <th>Cantidad</th>
+          <th>Cliente</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pending of pendings, let i = index">
+          <td>{{pending.libro}}</td>
+          <td>{{pending.cantidad}}</td>
+          <td>{{pending.cliente}}</td>
+          <td>{{pending.fecha | date : 'dd-MM-yyyy'}}</td>
+          <td>
+            <button [routerLink]="['/pages/pendings-edit']" (click)="savePending(pending)" class="button-action">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+            </button>
+            &nbsp;&nbsp;
+            <button *ngIf="admin" class="button-action" (click)="selectPending(pending.id)" data-toggle="modal" data-target="#deleteSale">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteSale" tabindex="-1" role="dialog" aria-labelledby="deleteSale" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Advertencia</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Deseas borrar este registro?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" (click)="delete()" data-dismiss="modal">Borrar</button>
+      </div>
+    </div>
+  </div>
+</div>

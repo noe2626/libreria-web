@@ -1,0 +1,61 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="h6 text-uppercase mb-0">Actualizar pendiente</h3>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="formData">
+      <div class="form-group">
+        <label class="form-control-label text-uppercase">Título</label>
+        <input type="text" placeholder="Título" class="form-control" formControlName="titulo" readonly/>
+      </div>
+      <div class="form-group">
+        <label class="form-control-label text-uppercase">Cliente</label>
+        <input type="text" placeholder="Autor" class="form-control" formControlName="cliente" readonly/>
+      </div>
+      <div class="form-group">
+        <label class="form-control-label text-uppercase">Cantidad</label>
+        <input type="text" placeholder="ISBN" class="form-control" formControlName="cantidad" readonly/>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-success button btn-submit btn-add" (click)="sale()">Registrar venta</button>
+      </div>
+      <button id="btnModal" type="button" class="btn-modal" data-toggle="modal" data-target="#exampleModal">
+        Modal
+      </button>
+    </form>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalles de venta</h5>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <label>Libro: {{book.titulo}}</label>
+              </div>
+              <div class="col-md-12">
+                <label>Cantidad: {{pending.cantidad}}</label>
+              </div>
+              <div class="col-md-12">
+                <label>Precio: ${{book.precio}}</label>
+              </div>
+              <div class="col-md-12">
+                <label>Total: ${{(book.precio*pending.cantidad)}}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="saveSale()" data-dismiss="modal">Continuar</button>
+      </div>
+    </div>
+  </div>
+</div>

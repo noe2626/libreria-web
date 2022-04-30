@@ -1,0 +1,68 @@
+<div class="card">
+  <div class="card-header">
+    <h3 class="h6 text-uppercase mb-0">Nuevo pendiente</h3>
+  </div>
+  <div class="card-body">
+      <form [formGroup]="formData">
+        <div class="row">
+          <div class="col-md-3">
+            <mat-form-field class="example-full-width">
+              <input type="text" placeholder="Titulo del libro" aria-label="Number" matInput [matAutocomplete]="autoBook" formControlName="titulo" (keyup)="filterBook()">
+              <mat-autocomplete #autoBook="matAutocomplete">
+                <mat-option *ngFor="let book of booksFiltered, let i=index" [value]="book.titulo" (click)="selectBook(i)">
+                  {{book.titulo}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field class="example-full-width">
+              <input type="text" placeholder="Cliente" aria-label="Number" matInput [matAutocomplete]="autoCustomer" formControlName="cliente" (keyup)="filterCustomer()">
+              <mat-autocomplete #autoCustomer="matAutocomplete">
+                <mat-option *ngFor="let custom of customersFiltered, let i=index" [value]="custom.nombre" (click)="selectCustomer(i)">
+                  {{custom.nombre}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+              <input type="text" placeholder="Cantidad" aria-label="Number" formControlName="cantidad" class="cant">
+          </div>
+          <div class="col-md-3">
+            <button (click)="addOrder()" [disabled]="formData.invalid" class="btn btn-primary btn-add button btn-color">Agregar</button>
+        </div>
+        </div>
+      </form>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped card-text">
+      <thead>
+        <tr>
+          <th>Libro</th>
+          <th>Cliente</th>
+          <th>Cantidad</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pending of pendings, let i = index">
+          <td>{{pending.libro}}</td>
+          <td>{{pending.cliente}}</td>
+          <td>{{pending.cantidad}}</td>
+          <td>
+            <button class="button-action" (click)="delete(i)" data-toggle="modal" data-target="#deleteSale">
+              <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="offset-md-4 col-md-4">
+        <button class="btn btn-primary button btn-color btn-100" (click)="register()">Registrar</button>
+      </div>
+    </div>
+  </div>
+</div>
